@@ -1,0 +1,11 @@
+{
+  "name": "aplicacao-de-notas",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitlab.com:ABKURA/aplicacao-de-notas.git",
+  "author": "André Kuratomi <andrekuratomi@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
