@@ -7,9 +7,12 @@ app.listen(3000);
 
 // Rota USERS:
 
+let USERS = [];
+
 const doesCpfExist = (req, res, next) => {
   const { cpf } = req.params;
-  const userFound = users.find((user) => user.cpf === parseInt(cpf));
+  const userFound = USERS.find((user) => user.cpf === cpf);
+  console.log(userFound);
 
   if (userFound === undefined) {
     return res
@@ -17,13 +20,10 @@ const doesCpfExist = (req, res, next) => {
       .json({ error: "invalid cpf - user is not registered" });
   }
 
-  req.user = users[userFound];
   req.userFound = userFound;
 
   next();
 };
-
-let users = [];
 
 app.post("/users", (req, res) => {
   const { name, cpf } = req.body;
@@ -35,48 +35,49 @@ app.post("/users", (req, res) => {
     notes: [],
   };
 
-  users.push(newUser);
+  USERS.push(newUser);
 
   const result = {
     message: "New usuer created!",
-    users: users[users.indexOf(newUser)],
+    USERS: USERS[USERS.indexOf(newUser)],
   };
 
   res.status(201).json(result);
 });
 
 app.get("/users", (req, res) => {
+  res.status(200).json(USERS);
+});
+
+app.get("/users/:cpf", doesCpfExist, (req, res) => {
   res.status(200).json(users);
 });
 
 app.patch("/users/:cpf", doesCpfExist, (req, res) => {
-  const { cpf } = req.params;
-  console.log(req.params);
   const { name } = req.body;
 
-  const userFound = users.find((user) => user.cpf === parseInt(cpf));
-  //   const updatedUser = {
-  //     id: uuidv4(),
-  //     name,
-  //     cpf,
-  //     notes: [],
-  //   };
-  console.log(userFound);
+  console.log(req.userFound);
 
-  userFound.name = name;
+  req.userFound.name = name;
 
   const result = {
     message: "User updated!",
-    users: users[users.indexOf(userFound)],
+    USERS,
   };
 
   res.status(201).json(result);
-  return userUpdated, 200;
 });
 
 app.delete("/users/:cpf", doesCpfExist, (req, res) => {
-  userDeleted = res.json({
+  const toDelete = req.userFound;
+  const newUSERS = USERS.filter((elt) => elt !== toDelete);
+  USERS = newUSERS;
+  console.log(USERS);
+
+  const result = {
     message: "User is deleted",
-    users: [],
-  });
+    USERS,
+  };
+
+  res.status(200).json(result);
 });
