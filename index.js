@@ -1,4 +1,6 @@
 import express from "express";
+import { v1 as uuidv1, v4 as uuidv4, v5 as uuidv5 } from "uuid";
+
 const app = express();
 app.listen(3000);
 
@@ -8,7 +10,7 @@ let users = [];
 
 app.post("/users", (req, res) => {
   // requisição com body
-  newUser = res.json(
+  newUser = res.status(201).set("Content-Type", "text/plain").json(
     {
       id: "algo",
       name: "fulano",
