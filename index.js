@@ -7,12 +7,26 @@ app.listen(3000);
 
 // Rota USERS:
 
+const doesCpfExist = (req, res, next) => {
+  const { cpf } = req.params;
+  const userFound = users.find((user) => user.cpf === parseInt(cpf));
+
+  if (userFound === undefined) {
+    return res
+      .status(404)
+      .json({ error: "invalid cpf - user is not registered" });
+  }
+
+  req.user = users[userFound];
+  req.userFound = userFound;
+
+  next();
+};
+
 let users = [];
 
 app.post("/users", (req, res) => {
-  // requisição com body
   const { name, cpf } = req.body;
-  //   console.log(data);
 
   const newUser = {
     id: uuidv4(),
@@ -35,11 +49,32 @@ app.get("/users", (req, res) => {
   res.status(200).json(users);
 });
 
-app.patch("/users/<cpf>", (req, res) => {
+app.patch("/users/:cpf", doesCpfExist, (req, res) => {
+  const { cpf } = req.params;
+  console.log(req.params);
+  const { name } = req.body;
+
+  const userFound = users.find((user) => user.cpf === parseInt(cpf));
+  //   const updatedUser = {
+  //     id: uuidv4(),
+  //     name,
+  //     cpf,
+  //     notes: [],
+  //   };
+  console.log(userFound);
+
+  userFound.name = name;
+
+  const result = {
+    message: "User updated!",
+    users: users[users.indexOf(userFound)],
+  };
+
+  res.status(201).json(result);
   return userUpdated, 200;
 });
 
-app.delete("/users/<cpf>", (req, res) => {
+app.delete("/users/:cpf", doesCpfExist, (req, res) => {
   userDeleted = res.json({
     message: "User is deleted",
     users: [],
