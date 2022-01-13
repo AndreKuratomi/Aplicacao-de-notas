@@ -38,7 +38,7 @@ app.post("/users", (req, res) => {
   USERS.push(newUser);
 
   const result = {
-    message: "New usuer created!",
+    message: "New user created!",
     USERS: USERS[USERS.indexOf(newUser)],
   };
 
@@ -49,9 +49,9 @@ app.get("/users", (req, res) => {
   res.status(200).json(USERS);
 });
 
-app.get("/users/:cpf", doesCpfExist, (req, res) => {
-  res.status(200).json(users);
-});
+// app.get("/users/:cpf", doesCpfExist, (req, res) => {
+//   res.status(200).json(users);
+// });
 
 app.patch("/users/:cpf", doesCpfExist, (req, res) => {
   const { name } = req.body;
@@ -77,6 +77,91 @@ app.delete("/users/:cpf", doesCpfExist, (req, res) => {
   const result = {
     message: "User is deleted",
     USERS,
+  };
+
+  res.status(200).json(result);
+});
+
+// ROTA NOTATIONS
+
+const doesIdExist = (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userFound;
+  const userNotes = user.notes;
+
+  const noteFound = userNotes.find((note) => note.id === id);
+  console.log(noteFound);
+
+  if (noteFound === undefined) {
+    return res
+      .status(404)
+      .json({ error: "invalid id - user is not registered" });
+  }
+
+  req.noteFound = noteFound;
+
+  next();
+};
+
+const date = new Date();
+const now = date.toISOString();
+
+app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
+  const user = req.userFound;
+  const userNotes = user.notes;
+  const { title, content } = req.body;
+
+  const newNotation = {
+    id: uuidv4(),
+    title,
+    content,
+    created_at: now,
+  };
+
+  userNotes.push(newNotation);
+
+  res.status(201).json({
+    message: `${title} was added into ${user.name}'s notes`,
+  });
+});
+
+app.get("/users/:cpf/notes", doesCpfExist, (req, res) => {
+  const user = req.userFound;
+  const userNotes = user.notes;
+  res.status(200).json(userNotes);
+});
+
+app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
+  const { title, content } = req.body;
+  const user = req.userFound;
+  const userNotes = user.notes;
+  const note = req.noteFound;
+  console.log(req.noteFound);
+
+  note.title = title;
+  note.content = content;
+  note.updated_at = now;
+
+  const result = {
+    message: "Notation updated!",
+    userNotes,
+  };
+
+  res.status(200).json(result);
+});
+
+app.delete("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
+  const user = req.userFound;
+  const userNotes = user.notes;
+  const toDelete = req.noteFound;
+
+  const newUserNotes = userNotes.filter((elt) => elt !== toDelete);
+  userNotes = newUserNotes;
+  console.log(userNotes);
+
+  const result = {
+    message: "Notation deleted!",
+    userNotes,
   };
 
   res.status(200).json(result);
