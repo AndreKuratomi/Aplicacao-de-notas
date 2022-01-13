@@ -147,13 +147,13 @@ app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
 
 app.delete("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
   const user = req.userFound;
-  const userNotes = user.notes;
+  let userNotes = user.notes;
   console.log(userNotes);
 
   const toDelete = req.noteFound;
 
   const newUserNotes = userNotes.filter((elt) => elt !== toDelete);
-  // userNotes = newUserNotes;
+  userNotes = newUserNotes;
   console.log(userNotes);
 
   const result = {
