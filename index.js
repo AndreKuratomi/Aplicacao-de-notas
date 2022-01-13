@@ -81,3 +81,13 @@ app.delete("/users/:cpf", doesCpfExist, (req, res) => {
 
   res.status(200).json(result);
 });
+
+// ROTA NOTATIONS
+
+app.post("/users/:cpf/notes", (req, res) => {});
+
+app.get("/users/:cpf/notes", (req, res) => {});
+
+app.patch("/users/:cpf/notes/:id", (req, res) => {});
+
+app.delete("/users/:cpf/notes/:id", (req, res) => {});
