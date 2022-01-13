@@ -175,16 +175,16 @@ E a resposta esperada:
 }
 ```
 
-<h3>Rota <b>/users</b></h3>
+<h3>Rota <b>/users/cpf**/notes</b></h3>
 
-Cadastro de usuários (Método POST): <b>/users</b>(ou localhost:3000/users)
+Criação de anotação (Método POST): <b>/users/cpf/notes</b>
 
 Exemplo a ser colocado no body da requisição:
 
 ```
 {
-  "name": "Patrick",
-  "cpf": "98765432100"
+  "title": "Dica",
+  "content": "Organizar meu dia"
 }
 ```
 
@@ -192,14 +192,11 @@ E a resposta esperada:
 
 ```
 {
-  "id": "gt545re8-9aff-4024-b786-d2cfa25c9839",
-  "name": "Patrick",
-  "cpf": "98765432100",
-  "notes": []
+  "message": "Dica was added into Patrick da Silva's notes"
 }
 ```
 
-Leitura dos usuários cadastrados (Método GET): <b>/users</b>(ou localhost:3000/users)
+Listagem das anotações (Método GET): <b>/users/cpf/notes</b>
 
 Exemplo a ser colocado no body da requisição:
 
@@ -212,44 +209,42 @@ E a resposta esperada:
 ```
 [
   {
-    "id": "gt545re8-9aff-4024-b786-d2cfa25c9839",
-    "name": "Patrick",
-    "cpf": "98765432100",
-    "notes": []
+    "id": "bf526ce8-9aff-4024-b786-d2cfa25c9839",
+    "created_at": "2021-11-24T17:10:41.253Z",
+    "title": "Dica",
+    "content": "Organizar meu dia pela manhã"
   }
 ]
 ```
 
-Atualização de usuário cadastrado (Método PATCH): <b>/users/cpf**</b>(ou localhost:3000/users/cpf**)
+Atualização de anotação (Método PATCH): <b>/users/cpf/notes/id\*\*\*</b>
 
-\*\*preencher com o cpf do usuário anteriormente cadastrado.
+\*\*\*preencher com o id da anotação cadastrada.
 
 Exemplo a ser colocado no body da requisição:
 
 ```
 {
-  "name": "Patrick da Silva",
-  "cpf": "98765432100"
+  "title": "Dica 1",
+  "content": "Organizar meu próximo dia no final da tarde"
 }
 ```
 
 E a resposta esperada:
 
 ```
-{
-  "message": "User is updated",
-  "users": [
-    {
-      "id": "gt545re8-9aff-4024-b786-d2cfa25c9839",
-      "name": "Patrick da Silva",
-      "cpf": "98765432100",
-      "notes": []
-    }
-  ]
-}
+[
+  {
+    "id": "bf526ce8-9aff-4024-b786-d2cfa25c9839",
+    "created_at": "2021-11-24T17:10:41.253Z",
+    "title": "Dica 1",
+    "content": "Organizar meu próximo dia no final da tarde",
+    "updated_at": "2021-11-24T17:13:21.281Z"
+  }
+]
 ```
 
-Deleção de usuário cadastrado (Método DELETE): <b>/users/cpf</b>(ou localhost:3000/users/cpf)
+Deleção da anotação (Método DELETE): <b>/users/cpf/notes/id</b>
 
 Exemplo a ser colocado no body da requisição:
 
@@ -260,43 +255,8 @@ Exemplo a ser colocado no body da requisição:
 E a resposta esperada:
 
 ```
-{
-  "message": "User is deleted",
-  "users": []
-}
+[]
 ```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
-
-
-<p></p>
-<p></p>
-<p></p>
-<p></p>
 
 # Termos de uso
 
