@@ -49,9 +49,9 @@ app.get("/users", (req, res) => {
   res.status(200).json(USERS);
 });
 
-app.get("/users/:cpf", doesCpfExist, (req, res) => {
-  res.status(200).json(users);
-});
+// app.get("/users/:cpf", doesCpfExist, (req, res) => {
+//   res.status(200).json(users);
+// });
 
 app.patch("/users/:cpf", doesCpfExist, (req, res) => {
   const { name } = req.body;
@@ -89,6 +89,7 @@ const now = date.toISOString();
 
 app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
   const user = req.userFound;
+  const userNotes = user.notes;
   const { title, content } = req.body;
 
   const newNotation = {
@@ -98,14 +99,18 @@ app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
     created_at: now,
   };
 
-  NOTATIONS.push(newNotation);
+  userNotes.push(newNotation);
 
   res.status(201).json({
     message: `${title} was added into ${user.name}'s notes`,
   });
 });
 
-app.get("/users/:cpf/notes", doesCpfExist, (req, res) => {});
+app.get("/users/:cpf/notes", doesCpfExist, (req, res) => {
+  const user = req.userFound;
+  const userNotes = user.notes;
+  res.status(200).json(userNotes);
+});
 
 app.patch("/users/:cpf/notes/:id", (req, res) => {});
 
