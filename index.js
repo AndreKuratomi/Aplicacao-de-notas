@@ -38,7 +38,7 @@ app.post("/users", (req, res) => {
   USERS.push(newUser);
 
   const result = {
-    message: "New usuer created!",
+    message: "New user created!",
     USERS: USERS[USERS.indexOf(newUser)],
   };
 
@@ -83,10 +83,29 @@ app.delete("/users/:cpf", doesCpfExist, (req, res) => {
 });
 
 // ROTA NOTATIONS
+const NOTATIONS = [];
+const date = new Date();
+const now = date.toISOString();
 
-app.post("/users/:cpf/notes", (req, res) => {});
+app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
+  const user = req.userFound;
+  const { title, content } = req.body;
 
-app.get("/users/:cpf/notes", (req, res) => {});
+  const newNotation = {
+    id: uuidv4(),
+    title,
+    content,
+    created_at: now,
+  };
+
+  NOTATIONS.push(newNotation);
+
+  res.status(201).json({
+    message: `${title} was added into ${user.name}'s notes`,
+  });
+});
+
+app.get("/users/:cpf/notes", doesCpfExist, (req, res) => {});
 
 app.patch("/users/:cpf/notes/:id", (req, res) => {});
 
