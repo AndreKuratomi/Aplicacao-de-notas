@@ -28,12 +28,15 @@
 git@gitlab.com:ABKURA/aplicacao-de-notas.git
 ```
 
-<p>E entrar na pasta criada:</p>
+<p>Entrar na pasta criada:</p>
 ```
 cd aplicacao-de-notas
 ```
-
-<p>2. Feita a clonagem, instalar:</p>
+<p>E rodar a aplicação:</p>
+```
+code .
+```
+<p>2. Feita a clonagem, instalar no terminal:</p>
 
 O gerenciador de pacotes <b>yarn</b>:
 
@@ -73,6 +76,17 @@ yarn add uuid
 
 # Utilização
 
+<p>Antes de passarmos para o API Client precisamos rodar o CLI</p>
+```
+yarn aplicacao-de-notas
+```
+
+<p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
+
+<p></p>
+<p></p>
+<p></p>
+<p></p>
 # Termos de uso
 
 <p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
