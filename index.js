@@ -148,9 +148,19 @@ app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
   res.status(200).json(result);
 });
 
-app.delete(
-  "/users/:cpf/notes/:id",
-  doesCpfExist,
-  doesIdExist,
-  (req, res) => {}
-);
+app.delete("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
+  const user = req.userFound;
+  const userNotes = user.notes;
+  const toDelete = req.noteFound;
+
+  const newUserNotes = userNotes.filter((elt) => elt !== toDelete);
+  userNotes = newUserNotes;
+  console.log(UserNotes);
+
+  const result = {
+    message: "Notation deleted!",
+    userNotes,
+  };
+
+  res.status(200).json(result);
+});
