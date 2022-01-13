@@ -12,7 +12,6 @@ let USERS = [];
 const doesCpfExist = (req, res, next) => {
   const { cpf } = req.params;
   const userFound = USERS.find((user) => user.cpf === cpf);
-  console.log(userFound);
 
   if (userFound === undefined) {
     return res
@@ -49,10 +48,6 @@ app.get("/users", (req, res) => {
   res.status(200).json(USERS);
 });
 
-// app.get("/users/:cpf", doesCpfExist, (req, res) => {
-//   res.status(200).json(users);
-// });
-
 app.patch("/users/:cpf", doesCpfExist, (req, res) => {
   const { name } = req.body;
 
@@ -72,7 +67,6 @@ app.delete("/users/:cpf", doesCpfExist, (req, res) => {
   const toDelete = req.userFound;
   const newUSERS = USERS.filter((elt) => elt !== toDelete);
   USERS = newUSERS;
-  console.log(USERS);
 
   const result = {
     message: "User is deleted",
@@ -90,7 +84,6 @@ const doesIdExist = (req, res, next) => {
   const userNotes = user.notes;
 
   const noteFound = userNotes.find((note) => note.id === id);
-  console.log(noteFound);
 
   if (noteFound === undefined) {
     return res
@@ -103,10 +96,10 @@ const doesIdExist = (req, res, next) => {
   next();
 };
 
-const date = new Date();
-const now = date.toISOString();
-
 app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
+  const date = new Date();
+  const now = date.toJSON();
+
   const user = req.userFound;
   const userNotes = user.notes;
   const { title, content } = req.body;
@@ -132,11 +125,13 @@ app.get("/users/:cpf/notes", doesCpfExist, (req, res) => {
 });
 
 app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
+  const date = new Date();
+  const now = date.toISOString();
+
   const { title, content } = req.body;
   const user = req.userFound;
   const userNotes = user.notes;
   const note = req.noteFound;
-  console.log(req.noteFound);
 
   note.title = title;
   note.content = content;
@@ -153,15 +148,17 @@ app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
 app.delete("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
   const user = req.userFound;
   const userNotes = user.notes;
+  console.log(userNotes);
+
   const toDelete = req.noteFound;
 
   const newUserNotes = userNotes.filter((elt) => elt !== toDelete);
-  userNotes = newUserNotes;
+  // userNotes = newUserNotes;
   console.log(userNotes);
 
   const result = {
     message: "Notation deleted!",
-    userNotes,
+    newUserNotes,
   };
 
   res.status(200).json(result);
