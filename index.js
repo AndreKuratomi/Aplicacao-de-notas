@@ -83,7 +83,26 @@ app.delete("/users/:cpf", doesCpfExist, (req, res) => {
 });
 
 // ROTA NOTATIONS
-const NOTATIONS = [];
+
+const doesIdExist = (req, res, next) => {
+  const { id } = req.params;
+  const user = req.userFound;
+  const userNotes = user.notes;
+
+  const noteFound = userNotes.find((note) => note.id === id);
+  console.log(noteFound);
+
+  if (noteFound === undefined) {
+    return res
+      .status(404)
+      .json({ error: "invalid id - user is not registered" });
+  }
+
+  req.noteFound = noteFound;
+
+  next();
+};
+
 const date = new Date();
 const now = date.toISOString();
 
@@ -112,6 +131,26 @@ app.get("/users/:cpf/notes", doesCpfExist, (req, res) => {
   res.status(200).json(userNotes);
 });
 
-app.patch("/users/:cpf/notes/:id", (req, res) => {});
+app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
+  const { title, content } = req.body;
+  const user = req.userFound;
+  const userNotes = user.notes;
+  console.log(req.userFound);
 
-app.delete("/users/:cpf/notes/:id", (req, res) => {});
+  req.userFound.title = title;
+  req.userFound.content = content;
+
+  const result = {
+    message: "User updated!",
+    USERS,
+  };
+
+  res.status(200).json(result);
+});
+
+app.delete(
+  "/users/:cpf/notes/:id",
+  doesCpfExist,
+  doesIdExist,
+  (req, res) => {}
+);
