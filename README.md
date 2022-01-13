@@ -16,11 +16,9 @@
 
 <p>0. Primeiramente, é necessário já ter instalado na própria máquina:
 
-<b> Um editor de código, conhecido também como IDE.</b> Por exemplo, o Visual Studio Code (VSCode).
+<p> Um <b>editor de código</b>, conhecido também como <b>IDE</b>.</p> Por exemplo, o <b>Visual Studio Code (VSCode)</b>.
 
-<b> Uma ferramenta cliente de API REST.</b> Por exemplo, o Insomnia ou o Postman.
-
-</p>
+<p> Uma <b>ferramenta cliente de API REST</b>.</p> Por exemplo, o <b>Insomnia</b> ou o <b>Postman</b>.</p>
 
 <p>1. Fazer o clone do reposítório <b>Aplicação de notas</b> na sua máquina pelo terminal do computador ou pelo do IDE:</p>
 
@@ -29,13 +27,17 @@ git@gitlab.com:ABKURA/aplicacao-de-notas.git
 ```
 
 <p>Entrar na pasta criada:</p>
+
 ```
 cd aplicacao-de-notas
 ```
+
 <p>E rodar a aplicação:</p>
+
 ```
 code .
 ```
+
 <p>2. Feita a clonagem, instalar no terminal:</p>
 
 O gerenciador de pacotes <b>yarn</b>:
@@ -77,9 +79,12 @@ yarn add uuid
 # Utilização
 
 <p>Antes de passarmos para o API Client precisamos rodar o CLI</p>
+
 ```
 yarn aplicacao-de-notas
 ```
+
+<p>A aplicação rodará com o <b>localhost:3000</b>.</p>
 
 <p>Após o CLI rodar de modo bem sucedido com o API Client aberto vamos utilizar as seguintes rotas:</p>
 
@@ -87,6 +92,7 @@ yarn aplicacao-de-notas
 <p></p>
 <p></p>
 <p></p>
+
 # Termos de uso
 
 <p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
