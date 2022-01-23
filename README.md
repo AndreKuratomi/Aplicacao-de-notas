@@ -38,40 +38,6 @@ cd aplicacao-de-notas
 code .
 ```
 
-<p>2. Feita a clonagem, instalar no terminal:</p>
-
-O gerenciador de pacotes <b>yarn</b>:
-
-```
-npm install --global yarn
-```
-
-O ambiente de execução <b>Node.js</b>. Disponível em https://nodejs.org/en/.
-
-O framework <b>Express.js</b>:
-
-```
-yarn add express
-```
-
-A biblioteca <b>Nodemon</b>:
-
-```
-yarn add nodemon -D
-```
-
-O compilador <b>Sucrase</b>:
-
-```
-yarn add nodemon sucrase
-```
-
-E a biblioteca <b>UUID</b>:
-
-```
-yarn add uuid
-```
-
 # Utilização
 
 <p>Antes de passarmos para o API Client precisamos rodar o CLI</p>
@@ -261,4 +227,3 @@ E a resposta esperada:
 # Termos de uso
 
 <p>Esta aplicação atende a fins exclusivamente didáticos e não possui qualquer intuito comercial.</p>
-```
