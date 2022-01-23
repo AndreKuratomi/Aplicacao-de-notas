@@ -29,8 +29,6 @@ export const listUsers = (req, res) => {
 export const updateUser = (req, res) => {
   const { name } = req.body;
 
-  console.log(req.userFound);
-
   req.userFound.name = name;
 
   const result = {
@@ -38,7 +36,7 @@ export const updateUser = (req, res) => {
     USERS,
   };
 
-  res.status(201).json(result);
+  res.status(200).json(result);
 };
 
 export const deleteUser = (req, res) => {

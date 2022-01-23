@@ -1,5 +1,16 @@
 import { USERS } from "../config/configs.config.js";
 
+export const onlyOneCPF = (req, res, next) => {
+  const { cpf } = req.body;
+  const cpfAlreadyExists = USERS.find((user) => user.cpf === cpf);
+
+  if (cpfAlreadyExists) {
+    return res.status(409).json({ error: "CPF already registered!" });
+  }
+
+  next();
+};
+
 export const doesCpfExist = (req, res, next) => {
   const { cpf } = req.params;
   const userFound = USERS.find((user) => user.cpf === cpf);
