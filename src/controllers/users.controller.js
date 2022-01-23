@@ -27,9 +27,16 @@ export const listUsers = (req, res) => {
 };
 
 export const updateUser = (req, res) => {
-  const { name } = req.body;
+  const { name, cpf } = req.body;
+
+  if (!name || !cpf) {
+    return res
+      .status(400)
+      .json({ error: "One of the required body fields is missing!" });
+  }
 
   req.userFound.name = name;
+  req.userFound.cpf = cpf;
 
   const result = {
     message: "User updated!",
