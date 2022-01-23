@@ -6,7 +6,7 @@
   "author": "André Kuratomi <andrekuratomi@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "aplicacao-de-notas": "nodemon index.js"
+    "dev": "nodemon src/index.js"
   },
   "dependencies": {
     "express": "^4.17.2",
