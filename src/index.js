@@ -5,8 +5,8 @@ import { USERS } from "./config/configs.config";
 
 const app = express();
 app.use(express.json());
-app.listen(3000);
 
+export default app;
 // Rota USERS:
 
 const doesCpfExist = (req, res, next) => {
