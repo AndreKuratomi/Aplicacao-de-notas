@@ -1,4 +1,4 @@
-import { USERS } from "./config/configs.config";
+import { USERS } from "../config/configs.config.js";
 
 export const doesCpfExist = (req, res, next) => {
   const { cpf } = req.params;
