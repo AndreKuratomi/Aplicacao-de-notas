@@ -1,7 +1,5 @@
 import { v1 as uuidv1, v4 as uuidv4, v5 as uuidv5 } from "uuid";
 
-// ROTA NOTATIONS
-
 export const createNotation = (req, res) => {
   const date = new Date();
   const now = date.toJSON();
