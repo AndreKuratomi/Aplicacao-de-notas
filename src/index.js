@@ -1,13 +1,13 @@
 import express from "express";
 import { v1 as uuidv1, v4 as uuidv4, v5 as uuidv5 } from "uuid";
 
+import { USERS } from "./config/configs.config";
+
 const app = express();
 app.use(express.json());
 app.listen(3000);
 
 // Rota USERS:
-
-let USERS = [];
 
 const doesCpfExist = (req, res, next) => {
   const { cpf } = req.params;
