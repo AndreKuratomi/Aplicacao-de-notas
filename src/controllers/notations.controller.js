@@ -1,10 +1,8 @@
 import { v1 as uuidv1, v4 as uuidv4, v5 as uuidv5 } from "uuid";
 
-import { doesIdExist } from "../middlewares/middlewares.middlewares";
-
 // ROTA NOTATIONS
 
-app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
+export const createNotation = (req, res) => {
   const date = new Date();
   const now = date.toJSON();
 
@@ -24,15 +22,15 @@ app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
   res.status(201).json({
     message: `${title} was added into ${user.name}'s notes`,
   });
-});
+};
 
-app.get("/users/:cpf/notes", doesCpfExist, (req, res) => {
+export const listNotations = (req, res) => {
   const user = req.userFound;
   const userNotes = user.notes;
   res.status(200).json(userNotes);
-});
+};
 
-app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
+export const updateNotation = (req, res) => {
   const date = new Date();
   const now = date.toISOString();
 
@@ -51,9 +49,9 @@ app.patch("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
   };
 
   res.status(200).json(result);
-});
+};
 
-app.delete("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
+export const deleteNotation = (req, res) => {
   const user = req.userFound;
   let userNotes = user.notes;
   console.log(userNotes);
@@ -70,4 +68,4 @@ app.delete("/users/:cpf/notes/:id", doesCpfExist, doesIdExist, (req, res) => {
   };
 
   res.status(200).json(result);
-});
+};
