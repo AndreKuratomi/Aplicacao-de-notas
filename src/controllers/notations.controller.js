@@ -1,24 +1,8 @@
 import { v1 as uuidv1, v4 as uuidv4, v5 as uuidv5 } from "uuid";
 
+import { doesIdExist } from "../middlewares/middlewares.middlewares";
+
 // ROTA NOTATIONS
-
-const doesIdExist = (req, res, next) => {
-  const { id } = req.params;
-  const user = req.userFound;
-  const userNotes = user.notes;
-
-  const noteFound = userNotes.find((note) => note.id === id);
-
-  if (noteFound === undefined) {
-    return res
-      .status(404)
-      .json({ error: "invalid id - user is not registered" });
-  }
-
-  req.noteFound = noteFound;
-
-  next();
-};
 
 app.post("/users/:cpf/notes", doesCpfExist, (req, res) => {
   const date = new Date();

@@ -1,23 +1,9 @@
 import { v1 as uuidv1, v4 as uuidv4, v5 as uuidv5 } from "uuid";
 
-import { USERS } from "./config/configs.config";
+import { USERS } from "../config/configs.config";
+import { doesCpfExist } from "../middlewares/middlewares.middlewares";
 
 // Rota USERS:
-
-const doesCpfExist = (req, res, next) => {
-  const { cpf } = req.params;
-  const userFound = USERS.find((user) => user.cpf === cpf);
-
-  if (userFound === undefined) {
-    return res
-      .status(404)
-      .json({ error: "invalid cpf - user is not registered" });
-  }
-
-  req.userFound = userFound;
-
-  next();
-};
 
 app.post("/users", (req, res) => {
   const { name, cpf } = req.body;
