@@ -52,13 +52,11 @@ export const updateNotation = (req, res) => {
 export const deleteNotation = (req, res) => {
   const user = req.userFound;
   let userNotes = user.notes;
-  console.log(userNotes);
 
   const toDelete = req.noteFound;
 
   const newUserNotes = userNotes.filter((elt) => elt !== toDelete);
   userNotes = newUserNotes;
-  console.log(userNotes);
 
   const result = {
     message: "Notation deleted!",

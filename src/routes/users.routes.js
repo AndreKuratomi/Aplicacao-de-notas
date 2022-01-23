@@ -1,6 +1,9 @@
 import { Router } from "express";
 
-import { doesCpfExist } from "../middlewares/middlewares.middlewares";
+import {
+  onlyOneCPF,
+  doesCpfExist,
+} from "../middlewares/middlewares.middlewares";
 import {
   createUser,
   listUsers,
@@ -11,7 +14,7 @@ import {
 const route = Router();
 
 export const userRoutes = (app) => {
-  route.post("", createUser);
+  route.post("", onlyOneCPF, createUser);
   route.get("", listUsers);
   route.patch("/:cpf", doesCpfExist, updateUser);
   route.delete("/:cpf", doesCpfExist, deleteUser);
