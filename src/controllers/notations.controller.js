@@ -32,13 +32,19 @@ export const updateNotation = (req, res) => {
   const date = new Date();
   const now = date.toISOString();
 
-  const { title, content } = req.body;
+  const body = req.body;
   const user = req.userFound;
   const userNotes = user.notes;
   const note = req.noteFound;
 
-  note.title = title;
-  note.content = content;
+  for (let elem in body) {
+    for (let subElem in note) {
+      if (elem === subElem) {
+        note[elem] = req.body[subElem];
+      }
+    }
+  }
+
   note.updated_at = now;
 
   const result = {
